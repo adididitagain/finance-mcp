@@ -5,6 +5,7 @@
 **Live financial data for any LLM agent.**
 Stock quotes · crypto · SEC filings · XBRL financials · FX · macro indicators
 
+[![npm](https://img.shields.io/npm/v/finance-data-mcp?color=cb3837&logo=npm)](https://www.npmjs.com/package/finance-data-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A5%2018-3fb950)](https://nodejs.org)
 [![MCP](https://img.shields.io/badge/MCP-compatible-bc8cff)](https://modelcontextprotocol.io)
@@ -54,20 +55,23 @@ The shared HTTP layer paces requests per host, retries `429`/`403`/`5xx` with ex
 
 ## Quickstart
 
+<details open>
+<summary><b>Claude Code</b> — no clone needed</summary>
+
+```bash
+claude mcp add finance -e SEC_USER_AGENT="Your Name your@email.com" -- npx -y finance-data-mcp
+```
+</details>
+
+<details>
+<summary><b>From source</b></summary>
+
 ```bash
 git clone https://github.com/AdityaSBisht/finance-mcp.git
 cd finance-mcp
 npm install
 npm run build
-```
-
-Then register it with your client:
-
-<details open>
-<summary><b>Claude Code</b></summary>
-
-```bash
-claude mcp add finance -e SEC_USER_AGENT="Your Name your@email.com" -- node /absolute/path/to/finance-mcp/dist/index.js
+claude mcp add finance -e SEC_USER_AGENT="Your Name your@email.com" -- node "$(pwd)/dist/index.js"
 ```
 </details>
 
@@ -80,8 +84,8 @@ Add to `claude_desktop_config.json` — on macOS, `~/Library/Application Support
 {
   "mcpServers": {
     "finance": {
-      "command": "node",
-      "args": ["/absolute/path/to/finance-mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "finance-data-mcp"],
       "env": {
         "SEC_USER_AGENT": "Your Name your@email.com"
       }
@@ -89,6 +93,8 @@ Add to `claude_desktop_config.json` — on macOS, `~/Library/Application Support
   }
 }
 ```
+
+To run from a local clone instead, use `"command": "node"` with `"args": ["/absolute/path/to/finance-mcp/dist/index.js"]`.
 </details>
 
 <details>

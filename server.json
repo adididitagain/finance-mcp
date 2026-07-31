@@ -1,0 +1,29 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.adityasbisht/finance-mcp",
+  "description": "Live stock, crypto, SEC filings, FX and macro data for LLM agents. No API keys.",
+  "repository": {
+    "url": "https://github.com/AdityaSBisht/finance-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "finance-data-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "SEC_USER_AGENT",
+          "description": "Contact string sent to SEC EDGAR on every request, in the form \"Your Name your@email.com\". EDGAR returns HTTP 403 without it, so the three SEC tools need this set; all other tools work without it.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}
