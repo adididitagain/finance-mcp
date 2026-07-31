@@ -15,9 +15,13 @@ export const SEC_USER_AGENT = process.env.SEC_USER_AGENT ?? "finance-mcp contact
 
 export const SEC_USER_AGENT_IS_DEFAULT = !process.env.SEC_USER_AGENT;
 
-const BROWSER_USER_AGENT =
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
-  "(KHTML, like Gecko) Chrome/120.0 Safari/537.36";
+/**
+ * Identify honestly. This is not just etiquette: Yahoo aggressively 429s
+ * requests carrying a spoofed desktop-browser User-Agent (measured 0/8 success
+ * with a full Chrome UA vs 8/8 with this one), presumably because a "browser"
+ * arriving with no cookies looks like a scraper.
+ */
+const DEFAULT_USER_AGENT = "finance-mcp/0.1 (+https://github.com/finance-mcp/finance-mcp)";
 
 type CacheEntry = { expires: number; value: unknown };
 const cache = new Map<string, CacheEntry>();
@@ -116,7 +120,7 @@ export async function getJson<T>(url: string, opts: GetJsonOptions): Promise<T> 
           return await fetch(url, {
             signal: controller.signal,
             headers: {
-              "User-Agent": BROWSER_USER_AGENT,
+              "User-Agent": DEFAULT_USER_AGENT,
               Accept: "application/json",
               ...headers,
             },

@@ -73,6 +73,14 @@ server.registerTool(
       const results = await Promise.allSettled(symbols.map((s) => getQuote(s)));
       const lines: string[] = [];
 
+      // Every symbol failing is a tool failure, not a result worth reporting.
+      if (results.every((r) => r.status === "rejected")) {
+        const reasons = results.map(
+          (r, i) => `${symbols[i]}: ${(r as PromiseRejectedResult).reason?.message ?? "lookup failed"}`,
+        );
+        throw new Error(reasons.join("\n"));
+      }
+
       results.forEach((r, i) => {
         if (r.status === "rejected") {
           lines.push(`${symbols[i]}: ${r.reason?.message ?? "lookup failed"}`);

@@ -124,6 +124,36 @@ await test("getQuote tolerates null closes", async () => {
   assert.equal(q.previousClose, 321.66);
 });
 
+// Yahoo returns candle closes as float32, so the last close rarely matches
+// regularMarketPrice exactly even when they are the same trade.
+const CHART_FLOAT32 = structuredClone(CHART_AAPL);
+CHART_FLOAT32.chart.result[0].meta.symbol = "F32";
+CHART_FLOAT32.chart.result[0].indicators.quote[0].close = [
+  315.2, 318.1, 320.9, 321.66, 333.4300079345703,
+];
+
+await test("getQuote computes a real change despite float32 closes", async () => {
+  routes = { "/v8/finance/chart/F32": CHART_FLOAT32 };
+  const q = await getQuote("F32");
+  assert.equal(q.price, 333.43);
+  assert.equal(q.previousClose, 321.66, "must not fall back to today's own close");
+  assert.ok(q.change > 11 && q.change < 12, `change was ${q.change}`);
+  assert.ok(q.changePercent > 3, `pct was ${q.changePercent}`);
+});
+
+await test("getQuote falls back to chartPreviousClose on a 1-candle series", async () => {
+  const single = structuredClone(CHART_AAPL);
+  single.chart.result[0].meta.symbol = "ONE";
+  single.chart.result[0].timestamp = [1785441601];
+  single.chart.result[0].indicators.quote[0] = {
+    open: [330.1], high: [334.75], low: [329.59], close: [333.43], volume: [55501839],
+  };
+  single.chart.result[0].indicators.adjclose = [{ adjclose: [333.43] }];
+  routes = { "/v8/finance/chart/ONE": single };
+  const q = await getQuote("ONE");
+  assert.equal(q.previousClose, 310.0);
+});
+
 await test("getQuote rejects an error payload", async () => {
   routes = {
     "/v8/finance/chart/BOGUS": {

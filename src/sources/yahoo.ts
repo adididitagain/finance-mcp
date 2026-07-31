@@ -139,10 +139,15 @@ export async function getQuote(symbol: string): Promise<Quote> {
     .filter((c): c is number => c != null);
 
   const price = m.regularMarketPrice ?? closes.at(-1) ?? null;
+
+  // The last daily candle is the current session — the same one regularMarketPrice
+  // reflects — so the prior close is the candle before it. Don't try to match the
+  // two by value: Yahoo returns candle closes float32-rounded (333.4300079... for
+  // a 333.43 quote), so an equality check silently reports a 0.00% daily change.
+  // chartPreviousClose is the close before the whole window, so it's only a
+  // last resort when the series is too short.
   const previousClose =
-    closes.length >= 2 && closes.at(-1) === price
-      ? closes.at(-2)!
-      : (closes.at(-1) ?? m.chartPreviousClose ?? null);
+    closes.length >= 2 ? closes.at(-2)! : (m.chartPreviousClose ?? closes.at(-1) ?? null);
 
   const change = price != null && previousClose != null ? price - previousClose : null;
 

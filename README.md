@@ -103,15 +103,21 @@ npm run dev     # tsc --watch
 npm run build   # compile to dist/
 ```
 
-Smoke test — starts the server over stdio and exercises every tool against the live APIs:
+Unit tests — stubbed fetch against recorded response shapes, no network:
 
 ```bash
-SEC_USER_AGENT="Your Name your@email.com" node scripts/smoke.mjs
+npm test
+```
+
+Smoke test — starts the server over stdio and exercises all ten tools against the live APIs:
+
+```bash
+SEC_USER_AGENT="Your Name your@email.com" npm run smoke
 ```
 
 ## Notes and limitations
 
-- **Yahoo Finance rate-limits by IP.** Bursts of requests get HTTP 429. The server paces requests per host, retries with exponential backoff, honours `Retry-After`, and falls back between Yahoo's two API hosts — but a heavily used IP can still be throttled for a few minutes. FX is served from the ECB instead, which has no such limit.
+- **Yahoo Finance rate-limits by IP, and it cares what you claim to be.** Sending a spoofed desktop-browser `User-Agent` gets you throttled hard — measured 0/8 successful requests with a Chrome UA versus 8/8 with an honest `finance-mcp/0.1` one, back to back. This server identifies itself honestly for that reason; don't "fix" it by pretending to be a browser. It also paces requests per host, retries 429s with exponential backoff, honours `Retry-After`, and falls back between Yahoo's two API hosts. FX is served from the ECB instead, which has no rate limit.
 - **Quotes may be delayed** up to ~15 minutes, and are not exchange-official.
 - **SEC XBRL figures are as-filed.** `get_sec_financials` labels each row by the period it covers, not by the fiscal year of the filing it was read from — a 10-K restating a prior year will show the later filing date against the earlier period.
 - **World Bank data is annual** and typically lags one to two years.
