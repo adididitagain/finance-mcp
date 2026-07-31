@@ -5,6 +5,7 @@
 **Live financial data for any LLM agent.**
 Stock quotes · crypto · SEC filings · XBRL financials · FX · macro indicators
 
+[![CI](https://github.com/AdityaSBisht/finance-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/AdityaSBisht/finance-mcp/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/finance-data-mcp?color=cb3837&logo=npm)](https://www.npmjs.com/package/finance-data-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A5%2018-3fb950)](https://nodejs.org)
@@ -142,7 +143,7 @@ The server speaks MCP over stdio. Run `node dist/index.js` and point your client
 
 ```bash
 npm run dev      # tsc --watch
-npm test         # 9 offline tests, stubbed fetch, no network
+npm test         # 24 offline tests, stubbed fetch, no network
 npm run smoke    # drives all 10 tools against the live APIs
 ```
 

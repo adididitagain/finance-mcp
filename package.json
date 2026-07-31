@@ -30,7 +30,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsc --watch",
-    "test": "npm run build && node scripts/offline-test.mjs",
+    "test": "npm run build && node scripts/offline-test.mjs && node scripts/sec-test.mjs",
     "smoke": "npm run build && node scripts/smoke.mjs",
     "prepublishOnly": "npm run build"
   },
