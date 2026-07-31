@@ -1,0 +1,47 @@
+{
+  "name": "finance-mcp",
+  "version": "0.1.0",
+  "description": "MCP server giving any LLM agent live stock quotes, crypto prices, SEC filings, XBRL financials, FX rates and economic indicators — no API keys required.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "finance-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "test": "npm run build && node scripts/offline-test.mjs",
+    "smoke": "npm run build && node scripts/smoke.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "llm",
+    "finance",
+    "stocks",
+    "crypto",
+    "sec",
+    "edgar",
+    "agent"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}
