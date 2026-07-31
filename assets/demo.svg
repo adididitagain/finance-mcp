@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 400" width="840" height="400" role="img" aria-label="Terminal demo: an agent calls get_stock_quote and get_price_history, returning live Apple and NVIDIA market data">
+  <title>finance-mcp demo</title>
+  <desc>An agent asks for Apple's price and NVIDIA's monthly performance. finance-mcp answers with live quote and price-history data.</desc>
+
+  <style>
+    .t { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; font-size: 14px; }
+    .dim    { fill: #8b949e; }
+    .base   { fill: #c9d1d9; }
+    .green  { fill: #3fb950; }
+    .red    { fill: #f85149; }
+    .blue   { fill: #58a6ff; }
+    .purple { fill: #bc8cff; }
+    .yellow { fill: #d29922; }
+
+    /* Staggered reveal. All lines share one 15s cycle and differ only by
+       animation-delay, so the whole transcript replays cleanly. */
+    .line { opacity: 0; animation: reveal 15s infinite both; }
+    @keyframes reveal {
+      0%   { opacity: 0; }
+      2%   { opacity: 1; }
+      90%  { opacity: 1; }
+      94%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    .d1  { animation-delay: 2.9s; }
+    .d2  { animation-delay: 3.3s; }
+    .d3  { animation-delay: 4.2s; }
+    .d4  { animation-delay: 4.5s; }
+    .d5  { animation-delay: 4.7s; }
+    .d6  { animation-delay: 4.9s; }
+    .d7  { animation-delay: 5.6s; }
+    .d8  { animation-delay: 5.9s; }
+    .d9  { animation-delay: 6.1s; }
+    .d10 { animation-delay: 6.3s; }
+    .d11 { animation-delay: 7.0s; }
+
+    .cursor { animation: blink 1.1s steps(2, start) infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  </style>
+
+  <clipPath id="win"><rect x="1" y="1" width="838" height="398" rx="10"/></clipPath>
+
+  <g clip-path="url(#win)">
+    <rect width="840" height="400" fill="#0d1117"/>
+    <rect width="840" height="38" fill="#161b22"/>
+
+    <circle cx="24" cy="19" r="6" fill="#ff5f56"/>
+    <circle cx="44" cy="19" r="6" fill="#ffbd2e"/>
+    <circle cx="64" cy="19" r="6" fill="#27c93f"/>
+    <text class="t dim" x="420" y="24" text-anchor="middle">finance-mcp</text>
+
+    <!-- Prompt, revealed with a typewriter clip -->
+    <clipPath id="type">
+      <rect x="20" y="56" width="0" height="26">
+        <!-- Hold at full width for the rest of the cycle; collapsing it early
+             makes the question vanish while its answer is still on screen. -->
+        <animate attributeName="width" values="0;510;510" keyTimes="0;0.15;1"
+                 dur="15s" begin="0.3s" repeatCount="indefinite"/>
+      </rect>
+    </clipPath>
+    <g clip-path="url(#type)">
+      <text class="t" x="26" y="74">
+        <tspan class="green">❯ </tspan><tspan class="base">What's Apple trading at, and how has NVDA done this month?</tspan>
+      </text>
+    </g>
+
+    <!-- Tool calls -->
+    <text class="t line d1" x="26" y="108">
+      <tspan class="dim">⚙ </tspan><tspan class="purple">get_stock_quote</tspan><tspan class="dim">  symbols: ["AAPL"]</tspan>
+    </text>
+    <text class="t line d2" x="26" y="129">
+      <tspan class="dim">⚙ </tspan><tspan class="purple">get_price_history</tspan><tspan class="dim">  symbol: "NVDA", range: "1mo"</tspan>
+    </text>
+
+    <!-- Quote result -->
+    <text class="t line d3" x="26" y="163">
+      <tspan class="blue">AAPL</tspan><tspan class="dim"> — Apple Inc.</tspan>
+    </text>
+    <text class="t line d4" x="42" y="184">
+      <tspan class="dim">Price:      </tspan><tspan class="base">$333.43</tspan><tspan class="red">  -4.76  (-1.41%)</tspan>
+    </text>
+    <text class="t line d5" x="42" y="205">
+      <tspan class="dim">52w range:  </tspan><tspan class="base">$201.50 – $344.57</tspan>
+    </text>
+    <text class="t line d6" x="42" y="226">
+      <tspan class="dim">Volume:     </tspan><tspan class="base">55.50M</tspan>
+    </text>
+
+    <!-- History result -->
+    <text class="t line d7" x="26" y="260">
+      <tspan class="blue">NVDA</tspan><tspan class="dim"> — NVIDIA Corporation  (1mo, 1d, USD)</tspan>
+    </text>
+    <text class="t line d8" x="42" y="281">
+      <tspan class="dim">Period return:  </tspan><tspan class="red">-2.52%</tspan><tspan class="dim">   $200.09 → $195.04</tspan>
+    </text>
+    <text class="t line d9" x="42" y="302">
+      <tspan class="dim">Period high:    </tspan><tspan class="base">$214.39</tspan>
+    </text>
+    <text class="t line d10" x="42" y="323">
+      <tspan class="dim">Period low:     </tspan><tspan class="base">$190.01</tspan>
+    </text>
+
+    <text class="t line d11" x="26" y="357">
+      <tspan class="yellow">✓</tspan><tspan class="dim"> Live data · no API key · 10 tools</tspan>
+      <tspan class="green cursor"> ▋</tspan>
+    </text>
+  </g>
+
+  <rect x="1" y="1" width="838" height="398" rx="10" fill="none" stroke="#30363d"/>
+</svg>
