@@ -143,7 +143,7 @@ The server speaks MCP over stdio. Run `node dist/index.js` and point your client
 
 ```bash
 npm run dev      # tsc --watch
-npm test         # 24 offline tests, stubbed fetch, no network
+npm test         # 51 offline tests, stubbed fetch, no network
 npm run smoke    # drives all 10 tools against the live APIs
 ```
 

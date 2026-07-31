@@ -40,7 +40,28 @@ const concept = (tag, rows, entityName = "Test Corp") => [
 
 const fact = (start, end, val, form, filed, fp) => ({ start, end, val, form, filed, fp });
 
-const { getConcept, resolveCik, CONCEPT_ALIASES } = await import("../dist/sources/sec.js");
+const { getConcept, getFilings, resolveCik, CONCEPT_ALIASES } = await import("../dist/sources/sec.js");
+
+/** Build a submissions response from parallel arrays, as EDGAR returns them. */
+const submissions = (rows, name = "Test Corp") => [
+  200,
+  {
+    cik: "0000000001",
+    name,
+    tickers: ["TEST"],
+    sicDescription: "Testing",
+    filings: {
+      recent: {
+        accessionNumber: rows.map((r) => r.accession),
+        filingDate: rows.map((r) => r.filed),
+        reportDate: rows.map((r) => r.period ?? ""),
+        form: rows.map((r) => r.form),
+        primaryDocument: rows.map((r) => r.doc ?? ""),
+        primaryDocDescription: rows.map((r) => r.desc ?? ""),
+      },
+    },
+  },
+];
 
 let passed = 0;
 async function test(name, fn) {
@@ -229,6 +250,96 @@ await test("getConcept falls through when a tag exists but has no usable rows", 
   const r = await getConcept("0000000110", "revenue", "annual", 5);
   assert.equal(r.tag, second);
   assert.equal(r.points[0].value, 40);
+});
+
+/* ------------------------------------------------------------------ filings */
+
+await test("getFilings builds document URLs from the accession number", async () => {
+  routes = {
+    "submissions/CIK0000320193.json": submissions(
+      [
+        {
+          accession: "0000320193-24-000123",
+          filed: "2024-11-01",
+          period: "2024-09-28",
+          form: "10-K",
+          doc: "aapl-20240928.htm",
+          desc: "FORM 10-K",
+        },
+      ],
+      "Apple Inc.",
+    ),
+  };
+  const r = await getFilings("0000320193", undefined, 10);
+  const f = r.filings[0];
+  // Folder drops the dashes; the CIK path segment drops its leading zeros.
+  assert.equal(
+    f.url,
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019324000123/aapl-20240928.htm",
+  );
+  assert.equal(
+    f.filingIndexUrl,
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019324000123/0000320193-24-000123-index.htm",
+  );
+  assert.equal(f.reportDate, "2024-09-28");
+  assert.equal(r.name, "Apple Inc.");
+});
+
+await test("getFilings form filter includes amendments of that form", async () => {
+  routes = {
+    "submissions/CIK0000000201.json": submissions([
+      { accession: "0001-24-1", filed: "2024-01-01", form: "10-K", doc: "a.htm" },
+      { accession: "0001-24-2", filed: "2024-02-01", form: "10-K/A", doc: "b.htm" },
+      { accession: "0001-24-3", filed: "2024-03-01", form: "8-K", doc: "c.htm" },
+      { accession: "0001-24-4", filed: "2024-04-01", form: "10-Q", doc: "d.htm" },
+      // "NT 10-K" is a real EDGAR form: notification that the annual report will
+      // be filed late. It contains no financials and must not come back as a 10-K,
+      // which is what a naive substring match on the form name would do.
+      { accession: "0001-24-5", filed: "2024-05-01", form: "NT 10-K", doc: "e.htm" },
+    ]),
+  };
+  const r = await getFilings("0000000201", ["10-K"], 10);
+  assert.deepEqual(
+    r.filings.map((f) => f.form),
+    ["10-K", "10-K/A"],
+    "amendments count as the form; 10-Q, 8-K and NT 10-K must not",
+  );
+});
+
+await test("getFilings returns every form when no filter is given", async () => {
+  routes = {
+    "submissions/CIK0000000202.json": submissions([
+      { accession: "0002-24-1", filed: "2024-01-01", form: "10-K", doc: "a.htm" },
+      { accession: "0002-24-2", filed: "2024-02-01", form: "8-K", doc: "b.htm" },
+    ]),
+  };
+  const r = await getFilings("0000000202", undefined, 10);
+  assert.equal(r.filings.length, 2);
+});
+
+await test("getFilings stops at the limit", async () => {
+  routes = {
+    "submissions/CIK0000000203.json": submissions(
+      Array.from({ length: 6 }, (_, i) => ({
+        accession: `0003-24-${i}`,
+        filed: "2024-01-01",
+        form: "8-K",
+        doc: `d${i}.htm`,
+      })),
+    ),
+  };
+  const r = await getFilings("0000000203", ["8-K"], 2);
+  assert.equal(r.filings.length, 2);
+});
+
+await test("getFilings normalises an empty report date to null", async () => {
+  routes = {
+    "submissions/CIK0000000204.json": submissions([
+      { accession: "0004-24-1", filed: "2024-01-01", form: "4", doc: "x.htm", period: "" },
+    ]),
+  };
+  const r = await getFilings("0000000204", undefined, 5);
+  assert.equal(r.filings[0].reportDate, null, "empty string should become null, not \"\"");
 });
 
 console.log(`\n${passed} passed${process.exitCode ? " (with failures)" : ""}\n`);
