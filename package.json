@@ -1,7 +1,7 @@
 {
   "name": "finance-data-mcp",
-  "version": "0.1.0",
-  "mcpName": "io.github.adityasbisht/finance-mcp",
+  "version": "0.1.1",
+  "mcpName": "io.github.AdityaSBisht/finance-mcp",
   "description": "MCP server giving any LLM agent live stock quotes, crypto prices, SEC filings, XBRL financials, FX rates and economic indicators — no API keys required.",
   "license": "MIT",
   "author": "Aditya Bisht",
