@@ -3,3 +3,6 @@ dist/
 *.log
 .DS_Store
 .env
+
+# personal launch notes, not part of the project
+PROMO.md
