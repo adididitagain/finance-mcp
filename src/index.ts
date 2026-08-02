@@ -35,6 +35,13 @@ type TextResult = { content: { type: "text"; text: string }[]; isError?: boolean
 
 const ok = (text: string): TextResult => ({ content: [{ type: "text", text }] });
 
+/**
+ * Every tool here only reads from public APIs: nothing mutates state, and all
+ * of them reach hosts outside the client's control. Declaring that up front
+ * lets clients skip confirmation prompts and lets agents reason about retries.
+ */
+const READ_ONLY = { readOnlyHint: true, destructiveHint: false, openWorldHint: true } as const;
+
 /** Turn thrown errors into a readable tool error instead of a protocol failure. */
 async function guard(fn: () => Promise<TextResult>): Promise<TextResult> {
   try {
@@ -57,9 +64,14 @@ server.registerTool(
   {
     title: "Get stock quote",
     description:
-      "Current price and daily change for one or more stocks, ETFs, or indices. " +
+      "Latest price and daily change for one or more stocks, ETFs, or indices, from Yahoo Finance. " +
       "Use Yahoo-style symbols: AAPL, MSFT, VOO, ^GSPC (S&P 500), ^IXIC (Nasdaq), " +
-      "RELIANCE.NS (India), 7203.T (Japan). Call search_symbols first if unsure.",
+      "RELIANCE.NS (India), 7203.T (Japan). Call search_symbols first if you only have a company name. " +
+      "Returns a single point in time — use get_price_history for a series or a period return, " +
+      "and get_crypto_price for cryptocurrencies, which are not on Yahoo symbols. " +
+      "Prices may be delayed up to ~15 minutes and are not exchange-official, so do not treat them " +
+      "as execution prices. Symbols are looked up independently: one bad symbol does not fail the rest.",
+    annotations: READ_ONLY,
     inputSchema: {
       symbols: z
         .array(z.string())
@@ -110,8 +122,13 @@ server.registerTool(
   {
     title: "Get price history",
     description:
-      "Historical OHLCV candles for a stock, ETF, index, or FX pair, plus period return " +
-      "and high/low summary. Good for questions like 'how has NVDA done this year?'.",
+      "Historical OHLCV candles for a stock, ETF, index, or FX pair from Yahoo Finance, plus the " +
+      "period return and a high/low/average summary. Use this for 'how has NVDA done this year?' " +
+      "or any question about change over time; use get_stock_quote when you only need the current price. " +
+      "Does not cover cryptocurrencies. Intraday intervals (1m–1h) are only retained by Yahoo for short " +
+      "ranges — pair them with 1d/5d/1mo, and use 1d or coarser for 1y and beyond, or the response " +
+      "comes back empty. Candles with no trade are omitted, so gaps in the series are expected.",
+    annotations: READ_ONLY,
     inputSchema: {
       symbol: z.string().describe("Ticker symbol, e.g. AAPL"),
       range: z
@@ -179,11 +196,22 @@ server.registerTool(
   {
     title: "Search ticker symbols",
     description:
-      "Look up ticker symbols by company name or partial text. Use this to resolve " +
-      '"Apple" → AAPL before calling the quote or history tools.',
+      "Resolve a company or fund name to a ticker symbol using Yahoo Finance search. " +
+      'Call this first whenever you have a name rather than a symbol — "Apple" → AAPL — then pass the ' +
+      "symbol to get_stock_quote or get_price_history. Covers equities, ETFs, and indices across global " +
+      "exchanges, so the same company may return several listings; prefer the one whose exchange matches " +
+      "the market you want. For US-listed companies you need SEC data on, get_sec_filings accepts a " +
+      "company name directly and needs no symbol lookup.",
+    annotations: READ_ONLY,
     inputSchema: {
       query: z.string().min(1).describe('Company or fund name, e.g. "Vanguard S&P 500"'),
-      limit: z.number().int().min(1).max(20).default(8),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(20)
+        .default(8)
+        .describe("Maximum matches to return, best match first. Raise it for ambiguous names."),
     },
   },
   async ({ query, limit }) =>
@@ -203,7 +231,14 @@ server.registerTool(
   "get_fx_rate",
   {
     title: "Get FX rate",
-    description: "Current exchange rate between two currencies, with the day's change.",
+    description:
+      "Convert between two currencies at the latest published reference rate, with the change since the " +
+      "prior session. Returns both the rate and, when `amount` is given, the converted total. " +
+      "Major currencies come from the European Central Bank (published once per business day, so the rate " +
+      "is a daily fix rather than a live tick); pairs outside the ECB's ~30 currencies fall back to Yahoo. " +
+      "Use get_crypto_price for crypto — BTC and ETH are not currencies here. " +
+      "These are indicative mid-market rates, not dealable quotes, so they will not match what a bank charges.",
+    annotations: READ_ONLY,
     inputSchema: {
       from: z.string().length(3).describe("Base currency code, e.g. USD"),
       to: z.string().length(3).describe("Quote currency code, e.g. INR"),
@@ -257,8 +292,14 @@ server.registerTool(
   {
     title: "Get crypto price",
     description:
-      "Spot price, 24h change, market cap, and 24h volume for one or more cryptocurrencies. " +
-      'Accepts common tickers ("btc", "eth", "sol") or CoinGecko ids ("bitcoin", "matic-network").',
+      "Spot price, 24h change, market cap, and 24h volume for specific cryptocurrencies you name, " +
+      "from CoinGecko. Use this when you know which coins you want; use get_crypto_market instead to " +
+      "rank the market or discover the largest coins. " +
+      'Accepts common tickers ("btc", "eth", "sol") or CoinGecko ids ("bitcoin", "matic-network"); ' +
+      "unknown names are reported back rather than failing the whole call, so a typo returns the other " +
+      "coins. Prices are near-real-time but not exchange-official. Stocks and FX are not available here — " +
+      "use get_stock_quote and get_fx_rate.",
+    annotations: READ_ONLY,
     inputSchema: {
       coins: z.array(z.string()).min(1).max(25).describe('e.g. ["btc", "eth", "solana"]'),
       vs_currency: z.string().default("usd").describe("Quote currency: usd, eur, inr, jpy, btc, …"),
@@ -297,10 +338,28 @@ server.registerTool(
   {
     title: "Get top crypto by market cap",
     description:
-      "Ranked table of the largest cryptocurrencies by market cap, with 24h and 7d performance.",
+      "Ranked table of the largest cryptocurrencies by market cap, with 24h and 7d performance, " +
+      "from CoinGecko. Use this to survey or discover the market — 'what are the biggest coins', " +
+      "'what moved this week'. When you already know which coins you care about, use get_crypto_price " +
+      "instead: it takes explicit names and avoids pulling a whole ranking. " +
+      "Always returns the top N by market cap starting at rank 1; there is no paging or filtering, " +
+      "so a coin outside the top `limit` will not appear no matter how it performed.",
+    annotations: READ_ONLY,
     inputSchema: {
-      limit: z.number().int().min(1).max(100).default(15),
-      vs_currency: z.string().default("usd"),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(100)
+        .default(15)
+        .describe("How many coins to return, ranked from #1 by market cap. Max 100."),
+      vs_currency: z
+        .string()
+        .default("usd")
+        .describe(
+          "Currency that prices, market caps and volumes are denominated in: usd, eur, inr, jpy, " +
+            "or a crypto like btc. Does not filter which coins are returned.",
+        ),
     },
   },
   async ({ limit, vs_currency }) =>
@@ -332,16 +391,27 @@ server.registerTool(
   {
     title: "Get SEC filings",
     description:
-      "Recent SEC EDGAR filings for a US-listed company, with direct document URLs. " +
-      "Filter by form type (10-K annual report, 10-Q quarterly, 8-K material event, " +
-      "4 insider trade, S-1 IPO, 13F fund holdings, DEF 14A proxy).",
+      "Recent SEC EDGAR filings for one US-listed company, newest first, with direct document URLs " +
+      "you can cite or fetch. Filter by form type (10-K annual report, 10-Q quarterly, 8-K material " +
+      "event, 4 insider trade, S-1 IPO, 13F fund holdings, DEF 14A proxy); an amended form such as " +
+      "10-K/A is returned when you ask for its base form. " +
+      "Use this to find documents for a company you can already name. Use search_sec_filings instead to " +
+      "search filing text across all companies, and get_sec_financials to read reported numbers rather " +
+      "than locate documents. US SEC registrants only — non-US listings do not file with EDGAR.",
+    annotations: READ_ONLY,
     inputSchema: {
       company: z.string().describe('Ticker ("AAPL"), CIK ("320193"), or company name'),
       forms: z
         .array(z.string())
         .optional()
         .describe('Form types to keep, e.g. ["10-K", "8-K"]. Omit for all forms.'),
-      limit: z.number().int().min(1).max(50).default(10),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(50)
+        .default(10)
+        .describe("Maximum filings to return, newest first. Applied after the form filter."),
     },
   },
   async ({ company, forms, limit }) =>
@@ -379,9 +449,16 @@ server.registerTool(
   {
     title: "Get SEC XBRL financials",
     description:
-      "Reported financial line items straight from a company's XBRL filings — revenue, " +
-      "net income, EPS, assets, cash, operating cash flow and more, as an annual or " +
-      "quarterly time series. These are as-filed figures, not estimates.",
+      "Reported financial line items straight from a US company's XBRL filings — revenue, net income, " +
+      "EPS, assets, cash, operating cash flow and more — as an annual or quarterly time series. " +
+      "These are as-filed audited figures, not analyst estimates or forecasts, so prefer this over any " +
+      "market-data tool for fundamentals. Use get_sec_filings instead when you want the documents rather " +
+      "than the numbers. " +
+      "Each row is labelled by the period it covers; where a later filing restated a period, the most " +
+      "recently filed value is returned. Filers tag the same concept differently, so a concept alias is " +
+      "tried against several us-gaap tags and the response names the tag actually used — expect the tag " +
+      "to differ between companies. US SEC registrants only.",
+    annotations: READ_ONLY,
     inputSchema: {
       company: z.string().describe('Ticker ("AAPL"), CIK, or company name'),
       concept: z
@@ -390,8 +467,20 @@ server.registerTool(
         .describe(
           `One of: ${Object.keys(CONCEPT_ALIASES).join(", ")} — or an exact us-gaap tag like "NetIncomeLoss".`,
         ),
-      period: z.enum(["annual", "quarterly", "all"]).default("annual"),
-      limit: z.number().int().min(1).max(40).default(8),
+      period: z
+        .enum(["annual", "quarterly", "all"])
+        .default("annual")
+        .describe(
+          '"annual" returns full-year figures from 10-Ks, "quarterly" returns 10-Q periods, ' +
+            '"all" returns both interleaved. Annual is the right default for trend questions.',
+        ),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(40)
+        .default(8)
+        .describe("Maximum periods to return, most recent first. 8 annual periods ≈ 8 fiscal years."),
     },
   },
   async ({ company, concept, period, limit }) =>
@@ -430,14 +519,27 @@ server.registerTool(
   {
     title: "Full-text search SEC filings",
     description:
-      "Search the full text of SEC filings since 2001. Use it to find which companies " +
-      'discuss a topic — e.g. "AI data center capex" in 10-Ks. Quote a phrase for exact matching.',
+      "Search the full text of every SEC filing since 2001 to find which companies discuss a topic — " +
+      'e.g. "AI data center capex" in 10-Ks. Wrap a phrase in double quotes for exact matching; ' +
+      "unquoted terms match loosely and return far more noise. " +
+      "Use this for discovery across companies. When you already know the company, get_sec_filings is " +
+      "more direct. " +
+      "Results are ranked by EDGAR's own relevance, which favours companies with your query in their " +
+      "*name* — a search for a common term may surface a company called after it ahead of substantive " +
+      "discussion. Totals above 10,000 are reported as approximate. Filings before 2001 are not indexed.",
+    annotations: READ_ONLY,
     inputSchema: {
       query: z.string().min(2).describe('Search text; wrap in quotes for an exact phrase'),
       forms: z.array(z.string()).optional().describe('Restrict to form types, e.g. ["10-K"]'),
       date_from: z.string().optional().describe("Earliest filing date, YYYY-MM-DD"),
       date_to: z.string().optional().describe("Latest filing date, YYYY-MM-DD"),
-      limit: z.number().int().min(1).max(50).default(10),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(50)
+        .default(10)
+        .describe("Maximum matching documents to return, by EDGAR relevance rank."),
     },
   },
   async ({ query, forms, date_from, date_to, limit }) =>
@@ -467,9 +569,14 @@ server.registerTool(
   {
     title: "Get economic indicator",
     description:
-      "Macroeconomic time series by country from the World Bank — GDP, GDP growth, " +
-      "inflation, unemployment, population, debt, trade balance and more. " +
-      "Annual data; the most recent year or two may not be reported yet.",
+      "Macroeconomic time series by country from the World Bank — GDP, GDP growth, inflation, " +
+      "unemployment, population, government debt, trade balance and more — returned newest year first " +
+      "with year-over-year change. Use this for country-level economics; it says nothing about any " +
+      "individual company or security, which is what the market-data and SEC tools cover. " +
+      "Data is **annual only**, so it cannot answer questions about this month or this quarter, and " +
+      "reporting lags: the last one or two years are frequently unreported and are omitted rather than " +
+      "returned as zero. Coverage varies by country and indicator, so a valid pairing can still be empty.",
+    annotations: READ_ONLY,
     inputSchema: {
       country: z
         .string()
