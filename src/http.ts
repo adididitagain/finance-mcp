@@ -21,7 +21,7 @@ export const SEC_USER_AGENT_IS_DEFAULT = !process.env.SEC_USER_AGENT;
  * with a full Chrome UA vs 8/8 with this one), presumably because a "browser"
  * arriving with no cookies looks like a scraper.
  */
-const DEFAULT_USER_AGENT = "finance-mcp/0.1 (+https://github.com/AdityaSBisht/finance-mcp)";
+const DEFAULT_USER_AGENT = "finance-mcp/0.1 (+https://github.com/adididitagain/finance-mcp)";
 
 type CacheEntry = { expires: number; value: unknown };
 const cache = new Map<string, CacheEntry>();

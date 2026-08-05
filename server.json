@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.AdityaSBisht/finance-mcp",
+  "name": "io.github.adididitagain/finance-mcp",
   "description": "Live stock, crypto, SEC filings, FX and macro data for LLM agents. No API keys.",
   "repository": {
-    "url": "https://github.com/AdityaSBisht/finance-mcp",
+    "url": "https://github.com/adididitagain/finance-mcp",
     "source": "github"
   },
   "version": "0.1.2",

@@ -77,13 +77,13 @@
       <tspan class="blue">AAPL</tspan><tspan class="dim"> — Apple Inc.</tspan>
     </text>
     <text class="t line d4" x="42" y="184">
-      <tspan class="dim">Price:      </tspan><tspan class="base">$333.43</tspan><tspan class="red">  -4.76  (-1.41%)</tspan>
+      <tspan class="dim">Price:      </tspan><tspan class="base">$309.38</tspan><tspan class="green">  +5.96  (+1.96%)</tspan>
     </text>
     <text class="t line d5" x="42" y="205">
-      <tspan class="dim">52w range:  </tspan><tspan class="base">$201.50 – $344.57</tspan>
+      <tspan class="dim">52w range:  </tspan><tspan class="base">$202.16 – $344.57</tspan>
     </text>
     <text class="t line d6" x="42" y="226">
-      <tspan class="dim">Volume:     </tspan><tspan class="base">55.50M</tspan>
+      <tspan class="dim">Volume:     </tspan><tspan class="base">67.78M</tspan>
     </text>
 
     <!-- History result -->
@@ -91,7 +91,7 @@
       <tspan class="blue">NVDA</tspan><tspan class="dim"> — NVIDIA Corporation  (1mo, 1d, USD)</tspan>
     </text>
     <text class="t line d8" x="42" y="281">
-      <tspan class="dim">Period return:  </tspan><tspan class="red">-2.52%</tspan><tspan class="dim">   $200.09 → $195.04</tspan>
+      <tspan class="dim">Period return:  </tspan><tspan class="green">+8.38%</tspan><tspan class="dim">   $195.55 → $211.94</tspan>
     </text>
     <text class="t line d9" x="42" y="302">
       <tspan class="dim">Period high:    </tspan><tspan class="base">$214.39</tspan>
