@@ -5,7 +5,7 @@
 **Live financial data for any LLM agent.**
 Stock quotes · crypto · SEC filings · XBRL financials · FX · macro indicators
 
-[![CI](https://github.com/AdityaSBisht/finance-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/AdityaSBisht/finance-mcp/actions/workflows/ci.yml)
+[![CI](https://github.com/adididitagain/finance-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/adididitagain/finance-mcp/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/finance-data-mcp?color=cb3837&logo=npm)](https://www.npmjs.com/package/finance-data-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A5%2018-3fb950)](https://nodejs.org)
@@ -13,7 +13,7 @@ Stock quotes · crypto · SEC filings · XBRL financials · FX · macro indicato
 [![API key](https://img.shields.io/badge/API%20key-not%20required-3fb950)](#data-sources)
 [![Tools](https://img.shields.io/badge/tools-10-58a6ff)](#tools)
 
-<img src="assets/demo.svg" width="840" alt="Terminal demo: an agent calls get_stock_quote and get_price_history and gets live Apple and NVIDIA market data back">
+<img src="https://raw.githubusercontent.com/adididitagain/finance-mcp/main/assets/demo.gif" width="840" alt="Animated terminal demo: an agent calls get_stock_quote and get_price_history and gets live Apple and NVIDIA market data back">
 
 </div>
 
@@ -68,7 +68,7 @@ claude mcp add finance -e SEC_USER_AGENT="Your Name your@email.com" -- npx -y fi
 <summary><b>From source</b></summary>
 
 ```bash
-git clone https://github.com/AdityaSBisht/finance-mcp.git
+git clone https://github.com/adididitagain/finance-mcp.git
 cd finance-mcp
 npm install
 npm run build
@@ -161,4 +161,4 @@ An informational data tool. Nothing it returns is investment advice, and the dat
 
 ## License
 
-MIT © [Aditya Bisht](https://github.com/AdityaSBisht)
+MIT © [Aditya Bisht](https://github.com/adididitagain)
