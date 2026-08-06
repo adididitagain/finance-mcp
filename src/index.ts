@@ -20,6 +20,7 @@ import { getCryptoPrices, getTopCoins, resolveCoinId } from "./sources/coingecko
 import { getFxRate, supportedCurrencies } from "./sources/frankfurter.js";
 import { CONCEPT_ALIASES, fullTextSearch, getConcept, getFilings, resolveCik } from "./sources/sec.js";
 import { getIndicator, INDICATORS } from "./sources/worldbank.js";
+import { getInsiderActivity } from "./sources/insider.js";
 
 const server = new McpServer(
   { name: "finance-mcp", version: "0.1.0" },
@@ -558,6 +559,89 @@ server.registerTool(
       return ok(
         `${result.approximate ? "≥" : ""}${num(result.total, 0)} matching documents; showing ${result.hits.length}.\n\n` +
           `${body}\n\nSource: SEC EDGAR full-text search.`,
+      );
+    }),
+);
+
+server.registerTool(
+  "get_insider_activity",
+  {
+    title: "Get insider trading activity",
+    description:
+      "What a company's own officers, directors and 10% owners have been buying and selling in its " +
+      "stock, from their SEC Form 4 filings. Insiders must report within two business days, so this is " +
+      "the freshest disclosed signal about a company available anywhere. " +
+      "Crucially, it separates **open-market trades** — where someone actively chose to buy or sell — " +
+      "from **mechanical** activity like options vesting and shares withheld to pay the tax on that " +
+      "vesting. Most reported 'insider selling' is mechanical and means nothing; headlines routinely " +
+      "conflate the two. Read the open-market numbers, and treat the mechanical count as noise. " +
+      "US SEC registrants only. This reports what was disclosed and does not interpret it — insider " +
+      "buying and selling both have innocent explanations, and neither predicts the share price.",
+    annotations: READ_ONLY,
+    inputSchema: {
+      company: z.string().describe('Ticker ("AAPL"), CIK, or company name'),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(40)
+        .default(15)
+        .describe(
+          "How many Form 4 filings to read, newest first. Each is a separate SEC request, so keep " +
+            "this modest — 15 typically covers a few months at a large company.",
+        ),
+      since: z
+        .string()
+        .optional()
+        .describe('Only include filings on or after this date, YYYY-MM-DD (e.g. "2026-01-01")'),
+    },
+  },
+  async ({ company, limit, since }) =>
+    guard(async () => {
+      const { cik } = await resolveCik(company);
+      const a = await getInsiderActivity(cik, limit, since);
+
+      if (a.filings.length === 0) {
+        return ok(
+          `${a.company} (CIK ${cik}) has no Form 4 filings${since ? ` on or after ${since}` : ""}.`,
+        );
+      }
+
+      const s = a.summary;
+      const header = [
+        `${a.company} — insider activity`,
+        `${a.filings.length} Form 4 filing(s) from ${s.people.length} insider(s), ${s.from} → ${s.to}` +
+          (a.omitted ? `  (${a.omitted} older filing(s) not read; raise limit)` : ""),
+        "",
+        "OPEN-MARKET (a deliberate decision to trade)",
+        `  Bought: ${s.buys.filings} filing(s)   ${compact(s.buys.shares)} shares` +
+          (s.buys.value > 0 ? `   ≈ ${money(s.buys.value)}` : ""),
+        `  Sold:   ${s.sells.filings} filing(s)   ${compact(s.sells.shares)} shares` +
+          (s.sells.value > 0 ? `   ≈ ${money(s.sells.value)}` : ""),
+        `  Net:    ${signed(s.netOpenMarketShares, 0)} shares`,
+        "",
+        `MECHANICAL (vesting, option exercises, tax withholding — no decision): ${s.mechanicalFilings} filing(s)`,
+      ].join("\n");
+
+      const body = a.filings
+        .map((f) => {
+          const who = `${f.owner}${f.roles.length ? ` — ${f.roles.join(", ")}` : ""}`;
+          const rows = f.transactions.map((t) => {
+            const dir = t.direction === "acquired" ? "+" : t.direction === "disposed" ? "−" : " ";
+            const flag = t.klass === "open-market" ? "★" : " ";
+            return (
+              `    ${flag} ${t.date ?? f.filedAt}  ${dir}${compact(t.shares)} @ ` +
+              `${t.pricePerShare ? money(t.pricePerShare) : "—"}  ${t.label}` +
+              (t.sharesOwnedAfter != null ? `  (holds ${compact(t.sharesOwnedAfter)})` : "")
+            );
+          });
+          return `  ${who}\n    filed ${f.filedAt} · ${f.url}\n${rows.join("\n")}`;
+        })
+        .join("\n\n");
+
+      return ok(
+        `${header}\n\n★ = open-market trade\n\n${body}\n\n` +
+          "Source: SEC EDGAR Form 4. Figures are as filed by the insider.",
       );
     }),
 );

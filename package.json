@@ -1,8 +1,8 @@
 {
   "name": "finance-data-mcp",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "mcpName": "io.github.adididitagain/finance-mcp",
-  "description": "MCP server giving any LLM agent live stock quotes, crypto prices, SEC filings, XBRL financials, FX rates and economic indicators — no API keys required.",
+  "description": "MCP server giving any LLM agent live stock quotes, crypto prices, SEC filings, insider trades, XBRL financials, FX rates and economic indicators — no API keys required.",
   "license": "MIT",
   "author": "Aditya Bisht",
   "repository": {
@@ -30,7 +30,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsc --watch",
-    "test": "npm run build && node scripts/offline-test.mjs && node scripts/sec-test.mjs && node scripts/sources-test.mjs",
+    "test": "npm run build && node scripts/offline-test.mjs && node scripts/sec-test.mjs && node scripts/sources-test.mjs && node scripts/insider-test.mjs",
     "smoke": "npm run build && node scripts/smoke.mjs",
     "prepublishOnly": "npm run build"
   },
@@ -44,10 +44,13 @@
     "crypto",
     "sec",
     "edgar",
-    "agent"
+    "agent",
+    "insider-trading",
+    "form-4"
   ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
+    "fast-xml-parser": "^4.5.7",
     "zod": "^4.4.3"
   },
   "devDependencies": {

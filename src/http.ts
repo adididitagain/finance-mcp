@@ -91,6 +91,19 @@ function isRetryable(status: number | null): boolean {
 }
 
 export async function getJson<T>(url: string, opts: GetJsonOptions): Promise<T> {
+  return request<T>(url, opts, (body) => JSON.parse(body) as T);
+}
+
+/** Same transport as getJson, for endpoints that serve text rather than JSON. */
+export async function getText(url: string, opts: GetJsonOptions): Promise<string> {
+  return request<string>(url, opts, (body) => body);
+}
+
+async function request<T>(
+  url: string,
+  opts: GetJsonOptions,
+  parse: (body: string) => T,
+): Promise<T> {
   const { source, ttlMs = 0, headers = {}, timeoutMs = DEFAULT_TIMEOUT_MS, retries = 3 } = opts;
 
   const cacheKey = `${url}|${JSON.stringify(headers)}`;
@@ -152,7 +165,7 @@ export async function getJson<T>(url: string, opts: GetJsonOptions): Promise<T> 
         continue;
       }
 
-      const value = (await res.json()) as T;
+      const value = parse(await res.text());
       if (ttlMs > 0) cache.set(cacheKey, { expires: Date.now() + ttlMs, value });
       return value;
     } catch (err) {
@@ -174,8 +187,23 @@ export async function getSecJson<T>(
   url: string,
   opts: Omit<GetJsonOptions, "source" | "headers">,
 ): Promise<T> {
+  return withSecUserAgent((o) => getJson<T>(url, o), opts);
+}
+
+/** SEC endpoints that serve text — full submission `.txt` files, for instance. */
+export async function getSecText(
+  url: string,
+  opts: Omit<GetJsonOptions, "source" | "headers">,
+): Promise<string> {
+  return withSecUserAgent((o) => getText(url, o), opts);
+}
+
+async function withSecUserAgent<T>(
+  run: (opts: GetJsonOptions) => Promise<T>,
+  opts: Omit<GetJsonOptions, "source" | "headers">,
+): Promise<T> {
   try {
-    return await getJson<T>(url, {
+    return await run({
       ...opts,
       source: "SEC EDGAR",
       headers: { "User-Agent": SEC_USER_AGENT, "Accept-Encoding": "gzip, deflate" },

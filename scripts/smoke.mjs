@@ -19,6 +19,7 @@ const CALLS = [
   ["get_crypto_price", { coins: ["btc", "eth"], vs_currency: "usd" }],
   ["get_crypto_market", { limit: 5 }],
   ["get_sec_filings", { company: "AAPL", forms: ["10-K"], limit: 3 }],
+  ["get_insider_activity", { company: "AAPL", limit: 3 }],
   ["get_sec_financials", { company: "MSFT", concept: "revenue", period: "annual", limit: 4 }],
   ["search_sec_filings", { query: '"artificial intelligence"', forms: ["10-K"], limit: 3 }],
   ["get_economic_indicator", { country: "IN", indicator: "gdp_growth", limit: 5 }],

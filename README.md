@@ -3,7 +3,7 @@
 # finance-mcp
 
 **Live financial data for any LLM agent.**
-Stock quotes · crypto · SEC filings · XBRL financials · FX · macro indicators
+Stock quotes · crypto · SEC filings · **insider trades** · XBRL financials · FX · macro
 
 [![CI](https://github.com/adididitagain/finance-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/adididitagain/finance-mcp/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/finance-data-mcp?color=cb3837&logo=npm)](https://www.npmjs.com/package/finance-data-mcp)
@@ -11,7 +11,7 @@ Stock quotes · crypto · SEC filings · XBRL financials · FX · macro indicato
 [![Node](https://img.shields.io/badge/node-%E2%89%A5%2018-3fb950)](https://nodejs.org)
 [![MCP](https://img.shields.io/badge/MCP-compatible-bc8cff)](https://modelcontextprotocol.io)
 [![API key](https://img.shields.io/badge/API%20key-not%20required-3fb950)](#data-sources)
-[![Tools](https://img.shields.io/badge/tools-10-58a6ff)](#tools)
+[![Tools](https://img.shields.io/badge/tools-11-58a6ff)](#tools)
 
 <img src="https://raw.githubusercontent.com/adididitagain/finance-mcp/main/assets/demo.gif" width="840" alt="Animated terminal demo: an agent calls get_stock_quote and get_price_history and gets live Apple and NVIDIA market data back">
 
@@ -23,7 +23,35 @@ Stock quotes · crypto · SEC filings · XBRL financials · FX · macro indicato
 
 Most finance APIs want a signup, a key, and a credit card before your agent can answer *"what's Apple trading at?"*
 
-`finance-mcp` wraps five genuinely free public sources behind ten MCP tools. Clone, build, point Claude at it — done. The only configuration is an email address, and only because the SEC insists on one.
+`finance-mcp` wraps five genuinely free public sources behind eleven MCP tools. No key for any of them. The only configuration is an email address, and only because the SEC insists on one.
+
+### The one you can't get anywhere else
+
+Company insiders — officers, directors, 10% owners — must report every trade in their own stock to the SEC within **two business days**. It's public, it's structured, and essentially nobody reads it.
+
+The catch is that most of it means nothing. Options vest. Shares get withheld to pay the tax on that vesting. None of it is a decision, and all of it gets reported as "insider selling."
+
+`get_insider_activity` separates the two. Real output, Apple, one week in June:
+
+```
+OPEN-MARKET (a deliberate decision to trade)
+  Sold:   5 filing(s)   302.92K shares   ≈ $87,566,268.55
+
+MECHANICAL (vesting, option exercises, tax withholding — no decision): 1 filing(s)
+
+  Newstead Jennifer — SVP, GC and Secretary
+      2026-06-15  +30.10K @ —         Option exercise / conversion
+      2026-06-15  −16.24K @ $296.42   Shares withheld for taxes      ← not a trade
+
+  LEVINSON ARTHUR D — Director
+    ★ 2026-05-06  −149.53K @ $284.57  Open-market sale               ← a real decision
+    ★ 2026-05-06  −100.47K @ $285.04  Open-market sale
+      2026-05-06  −5.00K   @ —        Gift
+```
+
+Same company, same month. One of those is a signal; the other is payroll. Every row links to the filing it came from.
+
+> It reports what was disclosed and does not interpret it. Insider buying and selling both have innocent explanations, and neither predicts the share price.
 
 ## Tools
 
@@ -35,6 +63,7 @@ Most finance APIs want a signup, a key, and a credit card before your agent can 
 | `get_fx_rate` | Currency conversion at ECB reference rates |
 | `get_crypto_price` | Spot price, 24h change, market cap, volume |
 | `get_crypto_market` | Top coins ranked by market cap |
+| `get_insider_activity` | **Form 4 insider trades — open-market decisions separated from vesting/tax noise** |
 | `get_sec_filings` | Recent EDGAR filings with direct document URLs, filterable by form |
 | `get_sec_financials` | As-filed XBRL line items as a time series |
 | `search_sec_filings` | Full-text search across every EDGAR filing since 2001 |
@@ -47,7 +76,7 @@ flowchart LR
     A["Claude Desktop<br/>Claude Code<br/>any MCP client"] -->|MCP over stdio| B["finance-mcp"]
     B --> C["Yahoo Finance<br/><i>equities · ETFs · indices</i>"]
     B --> D["CoinGecko<br/><i>crypto</i>"]
-    B --> E["SEC EDGAR<br/><i>filings · XBRL</i>"]
+    B --> E["SEC EDGAR<br/><i>filings · XBRL · insider trades</i>"]
     B --> F["ECB / Frankfurter<br/><i>FX</i>"]
     B --> G["World Bank<br/><i>macro</i>"]
 ```
@@ -119,6 +148,8 @@ The server speaks MCP over stdio. Run `node dist/index.js` and point your client
 > What's India's GDP growth been over the past decade?
 >
 > Convert 5000 USD to JPY.
+>
+> Are Apple insiders actually selling, or is that just vesting?
 
 ## Data sources
 
@@ -126,7 +157,7 @@ The server speaks MCP over stdio. Run `node dist/index.js` and point your client
 |--------|----------|--------------|
 | [Yahoo Finance](https://finance.yahoo.com) | Equities, ETFs, indices, exotic FX | No |
 | [CoinGecko](https://www.coingecko.com/en/api) | Cryptocurrency | No |
-| [SEC EDGAR](https://www.sec.gov/edgar) | Filings and XBRL financials | No (User-Agent required) |
+| [SEC EDGAR](https://www.sec.gov/edgar) | Filings, XBRL financials, Form 4 insider trades | No (User-Agent required) |
 | [Frankfurter](https://frankfurter.dev) / ECB | FX reference rates | No |
 | [World Bank](https://data.worldbank.org) | Macroeconomic indicators | No |
 
@@ -143,8 +174,8 @@ The server speaks MCP over stdio. Run `node dist/index.js` and point your client
 
 ```bash
 npm run dev      # tsc --watch
-npm test         # 51 offline tests, stubbed fetch, no network
-npm run smoke    # drives all 10 tools against the live APIs
+npm test         # 66 offline tests, stubbed fetch + real EDGAR fixtures, no network
+npm run smoke    # drives all 11 tools against the live APIs
 ```
 
 ## Notes and limitations
@@ -154,6 +185,7 @@ npm run smoke    # drives all 10 tools against the live APIs
 - **SEC XBRL figures are as-filed.** `get_sec_financials` labels each row by the period it covers, not the fiscal year of the filing it came from — EDGAR's own `fy` field describes the filing, so a 10-K restating a prior year would otherwise mislabel it.
 - **`search_sec_filings` ranks by EDGAR's relevance**, which favours companies with your query in their *name*.
 - **World Bank data is annual** and typically lags one to two years.
+- **Insider data is only as complete as the window you read.** `get_insider_activity` reads the most recent `limit` Form 4s and reports how many it skipped — a large company files hundreds a year, so a small limit shows a recent slice, not a full picture. Form 4s are due within two business days of the trade, so there is a short reporting lag.
 
 ## Disclaimer
 
