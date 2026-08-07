@@ -53,6 +53,18 @@ Same company, same month. One of those is a signal; the other is payroll. Every 
 
 > It reports what was disclosed and does not interpret it. Insider buying and selling both have innocent explanations, and neither predicts the share price.
 
+### So we measured how often it matters
+
+That claim is testable, so we tested it: every Form 4 filed by an insider at an S&P 100 company over twelve months — 2,969 filings — classified by whether the filing contains an actual decision to trade.
+
+<img src="https://raw.githubusercontent.com/adididitagain/finance-mcp/main/assets/insider-study.svg" width="880" alt="Chart: 71.9% of insider Form 4 filings contain no decision to trade at all. 69.2% are vesting, option exercises and tax withholding; 26.2% contain an open-market sale; 2.7% are gifts only; 1.9% contain an open-market purchase.">
+
+**Roughly seven in ten insider filings contain no decision to trade at all.** At the median company it's 83%.
+
+A second result surprised us more. Corporations file Form 4s too, as 10% owners — and **53 filings, 1.8% of the sample, accounted for 65% of every disposed share.** The largest single "insider" in the data was Honeywell International Inc, disposing of 317M shares of a company it was spinning off. Rank insiders by share count and the top of the list isn't people.
+
+Method, caveats and the raw data are in [`analysis/`](analysis/). It re-runs from scratch with two commands.
+
 ## Tools
 
 | Tool | What it does |

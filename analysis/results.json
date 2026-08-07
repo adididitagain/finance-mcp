@@ -1,0 +1,850 @@
+{
+  "summary": {
+    "generatedAt": "2026-08-07",
+    "window": {
+      "since": "2025-08-06",
+      "months": 12,
+      "perCompanyLimit": 30
+    },
+    "companies": 100,
+    "filingsTotal": 2969,
+    "filingsByPeople": 2916,
+    "filingsByEntities": 53,
+    "filingClasses": {
+      "pureMechanical": 1527,
+      "giftOnly": 59,
+      "openMarketSale": 578,
+      "openMarketPurchase": 43,
+      "both": 0,
+      "noTransactions": 709
+    },
+    "pctFilingsWithNoMarketDecision": 71.9,
+    "pctFilingsWithASale": 26.2,
+    "pctFilingsWithAPurchase": 1.9,
+    "medianCompanyPctFilingsNoDecision": 83.3,
+    "shareWeighted": {
+      "disposedByPeople": 241036684.0671,
+      "disposedByEntities": 452860486,
+      "peopleByCode": {
+        "F": 26876597.063400008,
+        "S": 24604733.854000002,
+        "G": 83830843,
+        "D": 96190468,
+        "J": 9466701,
+        "I": 649.1496999999999,
+        "C": 60563,
+        "P": 6129
+      },
+      "entitiesByCode": {
+        "S": 8865750,
+        "J": 441127551,
+        "D": 2867185
+      },
+      "pctOfPeopleDisposalsThatWereSales": 10.2,
+      "medianCompanyPctDisposalsThatWereSales": 51.6,
+      "caveat": "Pooled share sums can double-count a transaction reported once per ownership vehicle, and are dominated by a few very large filings. The filing-count metrics above are the robust ones."
+    }
+  },
+  "perCompany": [
+    {
+      "ticker": "AAPL",
+      "company": "Apple Inc.",
+      "filings": 30,
+      "decided": 9,
+      "disposedS": 405826,
+      "disposedAll": 681204
+    },
+    {
+      "ticker": "ABBV",
+      "company": "AbbVie Inc.",
+      "filings": 30,
+      "decided": 3,
+      "disposedS": 46279,
+      "disposedAll": 184608
+    },
+    {
+      "ticker": "ABT",
+      "company": "ABBOTT LABORATORIES",
+      "filings": 30,
+      "decided": 4,
+      "disposedS": 709,
+      "disposedAll": 7919
+    },
+    {
+      "ticker": "ACN",
+      "company": "Accenture plc",
+      "filings": 30,
+      "decided": 1,
+      "disposedS": 10498,
+      "disposedAll": 10498
+    },
+    {
+      "ticker": "ADBE",
+      "company": "ADOBE INC.",
+      "filings": 30,
+      "decided": 5,
+      "disposedS": 77507,
+      "disposedAll": 99136
+    },
+    {
+      "ticker": "AIG",
+      "company": "AMERICAN INTERNATIONAL GROUP, INC.",
+      "filings": 30,
+      "decided": 0,
+      "disposedS": 0,
+      "disposedAll": 3025
+    },
+    {
+      "ticker": "AMD",
+      "company": "ADVANCED MICRO DEVICES INC",
+      "filings": 30,
+      "decided": 16,
+      "disposedS": 505808,
+      "disposedAll": 1034620
+    },
+    {
+      "ticker": "AMGN",
+      "company": "AMGEN INC",
+      "filings": 30,
+      "decided": 0,
+      "disposedS": 0,
+      "disposedAll": 9372
+    },
+    {
+      "ticker": "AMT",
+      "company": "AMERICAN TOWER CORP /MA/",
+      "filings": 30,
+      "decided": 9,
+      "disposedS": 88246,
+      "disposedAll": 138115
+    },
+    {
+      "ticker": "AMZN",
+      "company": "AMAZON COM INC",
+      "filings": 30,
+      "decided": 21,
+      "disposedS": 1446046,
+      "disposedAll": 2699843
+    },
+    {
+      "ticker": "AVGO",
+      "company": "Broadcom Inc.",
+      "filings": 30,
+      "decided": 18,
+      "disposedS": 1847134,
+      "disposedAll": 2628964
+    },
+    {
+      "ticker": "AXP",
+      "company": "AMERICAN EXPRESS CO",
+      "filings": 30,
+      "decided": 1,
+      "disposedS": 7033,
+      "disposedAll": 7033
+    },
+    {
+      "ticker": "BA",
+      "company": "BOEING CO",
+      "filings": 30,
+      "decided": 3,
+      "disposedS": 1503.45,
+      "disposedAll": 9998.285
+    },
+    {
+      "ticker": "BAC",
+      "company": "BANK OF AMERICA CORP /DE/",
+      "filings": 15,
+      "decided": 1,
+      "disposedS": 126756,
+      "disposedAll": 183478
+    },
+    {
+      "ticker": "BK",
+      "company": "BKV Corp",
+      "filings": 30,
+      "decided": 4,
+      "disposedS": 157300,
+      "disposedAll": 227152
+    },
+    {
+      "ticker": "BKNG",
+      "company": "Booking Holdings Inc.",
+      "filings": 30,
+      "decided": 11,
+      "disposedS": 89257,
+      "disposedAll": 116818
+    },
+    {
+      "ticker": "BLK",
+      "company": "BlackRock, Inc.",
+      "filings": 30,
+      "decided": 6,
+      "disposedS": 65249,
+      "disposedAll": 77881
+    },
+    {
+      "ticker": "BMY",
+      "company": "BRISTOL MYERS SQUIBB CO",
+      "filings": 30,
+      "decided": 1,
+      "disposedS": 30000,
+      "disposedAll": 200172
+    },
+    {
+      "ticker": "BRK-B",
+      "company": "BERKSHIRE HATHAWAY INC",
+      "filings": 15,
+      "decided": 3,
+      "disposedS": 17000,
+      "disposedAll": 14755525
+    },
+    {
+      "ticker": "C",
+      "company": "CITIGROUP INC",
+      "filings": 30,
+      "decided": 3,
+      "disposedS": 39849,
+      "disposedAll": 196327.31
+    },
+    {
+      "ticker": "CAT",
+      "company": "CATERPILLAR INC",
+      "filings": 30,
+      "decided": 9,
+      "disposedS": 95773,
+      "disposedAll": 123548
+    },
+    {
+      "ticker": "CHTR",
+      "company": "CHARTER COMMUNICATIONS, INC. /MO/",
+      "filings": 22,
+      "decided": 5,
+      "disposedS": 87833,
+      "disposedAll": 1663379
+    },
+    {
+      "ticker": "CL",
+      "company": "COLGATE PALMOLIVE CO",
+      "filings": 30,
+      "decided": 7,
+      "disposedS": 432528,
+      "disposedAll": 585888
+    },
+    {
+      "ticker": "CMCSA",
+      "company": "COMCAST CORP",
+      "filings": 30,
+      "decided": 2,
+      "disposedS": 62441,
+      "disposedAll": 2323025
+    },
+    {
+      "ticker": "COF",
+      "company": "CAPITAL ONE FINANCIAL CORP",
+      "filings": 30,
+      "decided": 12,
+      "disposedS": 35052,
+      "disposedAll": 51767
+    },
+    {
+      "ticker": "COP",
+      "company": "CONOCOPHILLIPS",
+      "filings": 30,
+      "decided": 12,
+      "disposedS": 759354,
+      "disposedAll": 802750
+    },
+    {
+      "ticker": "COST",
+      "company": "COSTCO WHOLESALE CORP /NEW",
+      "filings": 30,
+      "decided": 11,
+      "disposedS": 15569.688,
+      "disposedAll": 48299.77020000002
+    },
+    {
+      "ticker": "CRM",
+      "company": "Salesforce, Inc.",
+      "filings": 30,
+      "decided": 1,
+      "disposedS": 0,
+      "disposedAll": 76349
+    },
+    {
+      "ticker": "CSCO",
+      "company": "CISCO SYSTEMS, INC.",
+      "filings": 30,
+      "decided": 12,
+      "disposedS": 78308,
+      "disposedAll": 143097.85599999997
+    },
+    {
+      "ticker": "CVS",
+      "company": "CVS HEALTH Corp",
+      "filings": 30,
+      "decided": 2,
+      "disposedS": 3441551,
+      "disposedAll": 3517647
+    },
+    {
+      "ticker": "CVX",
+      "company": "CHEVRON CORP",
+      "filings": 29,
+      "decided": 12,
+      "disposedS": 2044294,
+      "disposedAll": 4289571
+    },
+    {
+      "ticker": "DE",
+      "company": "DEERE & CO",
+      "filings": 30,
+      "decided": 2,
+      "disposedS": 53472,
+      "disposedAll": 64972
+    },
+    {
+      "ticker": "DHR",
+      "company": "DANAHER CORP /DE/",
+      "filings": 30,
+      "decided": 1,
+      "disposedS": 1358,
+      "disposedAll": 4061
+    },
+    {
+      "ticker": "DIS",
+      "company": "Walt Disney Co",
+      "filings": 30,
+      "decided": 0,
+      "disposedS": 0,
+      "disposedAll": 6692.67
+    },
+    {
+      "ticker": "DOW",
+      "company": "DOW INC.",
+      "filings": 30,
+      "decided": 0,
+      "disposedS": 0,
+      "disposedAll": 13846
+    },
+    {
+      "ticker": "DUK",
+      "company": "Duke Energy CORP",
+      "filings": 30,
+      "decided": 4,
+      "disposedS": 42409,
+      "disposedAll": 50820
+    },
+    {
+      "ticker": "EMR",
+      "company": "EMERSON ELECTRIC CO",
+      "filings": 30,
+      "decided": 6,
+      "disposedS": 35518,
+      "disposedAll": 242308
+    },
+    {
+      "ticker": "EXC",
+      "company": "EXELON CORP",
+      "filings": 30,
+      "decided": 0,
+      "disposedS": 0,
+      "disposedAll": 165927
+    },
+    {
+      "ticker": "F",
+      "company": "FORD MOTOR CO",
+      "filings": 30,
+      "decided": 1,
+      "disposedS": 0,
+      "disposedAll": 337096
+    },
+    {
+      "ticker": "FDX",
+      "company": "FEDEX CORP",
+      "filings": 29,
+      "decided": 6,
+      "disposedS": 55846,
+      "disposedAll": 101799
+    },
+    {
+      "ticker": "GD",
+      "company": "GENERAL DYNAMICS CORP",
+      "filings": 29,
+      "decided": 9,
+      "disposedS": 229877,
+      "disposedAll": 354158
+    },
+    {
+      "ticker": "GE",
+      "company": "GENERAL ELECTRIC CO",
+      "filings": 30,
+      "decided": 2,
+      "disposedS": 9613,
+      "disposedAll": 22302
+    },
+    {
+      "ticker": "GILD",
+      "company": "GILEAD SCIENCES, INC.",
+      "filings": 29,
+      "decided": 15,
+      "disposedS": 120000,
+      "disposedAll": 130812
+    },
+    {
+      "ticker": "GM",
+      "company": "General Motors Co",
+      "filings": 30,
+      "decided": 14,
+      "disposedS": 1767777,
+      "disposedAll": 2522051
+    },
+    {
+      "ticker": "GOOGL",
+      "company": "Alphabet Inc.",
+      "filings": 25,
+      "decided": 5,
+      "disposedS": 10090,
+      "disposedAll": 141943.087
+    },
+    {
+      "ticker": "GS",
+      "company": "GOLDMAN SACHS GROUP INC",
+      "filings": 26,
+      "decided": 10,
+      "disposedS": 54114,
+      "disposedAll": 134645
+    },
+    {
+      "ticker": "HD",
+      "company": "HOME DEPOT, INC.",
+      "filings": 30,
+      "decided": 2,
+      "disposedS": 4343,
+      "disposedAll": 19305
+    },
+    {
+      "ticker": "HON",
+      "company": "HONEYWELL INTERNATIONAL INC",
+      "filings": 29,
+      "decided": 2,
+      "disposedS": 17348,
+      "disposedAll": 23942
+    },
+    {
+      "ticker": "IBM",
+      "company": "INTERNATIONAL BUSINESS MACHINES CORP",
+      "filings": 30,
+      "decided": 0,
+      "disposedS": 0,
+      "disposedAll": 4435
+    },
+    {
+      "ticker": "INTC",
+      "company": "INTEL CORP",
+      "filings": 30,
+      "decided": 2,
+      "disposedS": 61280,
+      "disposedAll": 157280
+    },
+    {
+      "ticker": "INTU",
+      "company": "INTUIT INC.",
+      "filings": 30,
+      "decided": 4,
+      "disposedS": 1572,
+      "disposedAll": 5774.679
+    },
+    {
+      "ticker": "JNJ",
+      "company": "JOHNSON & JOHNSON",
+      "filings": 30,
+      "decided": 7,
+      "disposedS": 244116,
+      "disposedAll": 312358
+    },
+    {
+      "ticker": "JPM",
+      "company": "JPMORGAN CHASE & CO",
+      "filings": 29,
+      "decided": 17,
+      "disposedS": 225236,
+      "disposedAll": 361293
+    },
+    {
+      "ticker": "KHC",
+      "company": "Kraft Heinz Co",
+      "filings": 30,
+      "decided": 4,
+      "disposedS": 282538,
+      "disposedAll": 454793
+    },
+    {
+      "ticker": "KO",
+      "company": "COCA COLA CO",
+      "filings": 30,
+      "decided": 14,
+      "disposedS": 2082091,
+      "disposedAll": 2203980
+    },
+    {
+      "ticker": "LIN",
+      "company": "LINDE PLC",
+      "filings": 30,
+      "decided": 6,
+      "disposedS": 26546,
+      "disposedAll": 87167.709
+    },
+    {
+      "ticker": "LLY",
+      "company": "ELI LILLY & Co",
+      "filings": 29,
+      "decided": 1,
+      "disposedS": 2500,
+      "disposedAll": 3660.993
+    },
+    {
+      "ticker": "LMT",
+      "company": "LOCKHEED MARTIN CORP",
+      "filings": 30,
+      "decided": 3,
+      "disposedS": 9870,
+      "disposedAll": 32473.0245
+    },
+    {
+      "ticker": "LOW",
+      "company": "LOWES COMPANIES INC",
+      "filings": 30,
+      "decided": 3,
+      "disposedS": 25980,
+      "disposedAll": 52247
+    },
+    {
+      "ticker": "MA",
+      "company": "Mastercard Inc",
+      "filings": 30,
+      "decided": 9,
+      "disposedS": 97517,
+      "disposedAll": 127960
+    },
+    {
+      "ticker": "MCD",
+      "company": "MCDONALDS CORP",
+      "filings": 30,
+      "decided": 14,
+      "disposedS": 83896.66,
+      "disposedAll": 111262.01999999999
+    },
+    {
+      "ticker": "MDLZ",
+      "company": "Mondelez International, Inc.",
+      "filings": 24,
+      "decided": 2,
+      "disposedS": 3064,
+      "disposedAll": 130034
+    },
+    {
+      "ticker": "MDT",
+      "company": "Medtronic plc",
+      "filings": 30,
+      "decided": 2,
+      "disposedS": 7291,
+      "disposedAll": 95708
+    },
+    {
+      "ticker": "MET",
+      "company": "METLIFE INC",
+      "filings": 30,
+      "decided": 1,
+      "disposedS": 21312,
+      "disposedAll": 21312
+    },
+    {
+      "ticker": "META",
+      "company": "Meta Platforms, Inc.",
+      "filings": 30,
+      "decided": 15,
+      "disposedS": 39342,
+      "disposedAll": 669480
+    },
+    {
+      "ticker": "MMM",
+      "company": "3M CO",
+      "filings": 30,
+      "decided": 8,
+      "disposedS": 55210,
+      "disposedAll": 69766
+    },
+    {
+      "ticker": "MO",
+      "company": "ALTRIA GROUP, INC.",
+      "filings": 30,
+      "decided": 3,
+      "disposedS": 35698,
+      "disposedAll": 173707
+    },
+    {
+      "ticker": "MRK",
+      "company": "Merck & Co., Inc.",
+      "filings": 30,
+      "decided": 0,
+      "disposedS": 0,
+      "disposedAll": 1260
+    },
+    {
+      "ticker": "MS",
+      "company": "MORGAN STANLEY",
+      "filings": 29,
+      "decided": 7,
+      "disposedS": 134324,
+      "disposedAll": 295710
+    },
+    {
+      "ticker": "MSFT",
+      "company": "MICROSOFT CORP",
+      "filings": 30,
+      "decided": 4,
+      "disposedS": 21810.353,
+      "disposedAll": 21878.640999999996
+    },
+    {
+      "ticker": "NEE",
+      "company": "NEXTERA ENERGY INC",
+      "filings": 30,
+      "decided": 5,
+      "disposedS": 40691,
+      "disposedAll": 168116
+    },
+    {
+      "ticker": "NFLX",
+      "company": "NETFLIX INC",
+      "filings": 30,
+      "decided": 6,
+      "disposedS": 591047,
+      "disposedAll": 663067
+    },
+    {
+      "ticker": "NKE",
+      "company": "NIKE, Inc.",
+      "filings": 29,
+      "decided": 9,
+      "disposedS": 26463,
+      "disposedAll": 9877923
+    },
+    {
+      "ticker": "NVDA",
+      "company": "NVIDIA CORP",
+      "filings": 30,
+      "decided": 9,
+      "disposedS": 2509853,
+      "disposedAll": 63594828
+    },
+    {
+      "ticker": "ORCL",
+      "company": "ORACLE CORP",
+      "filings": 30,
+      "decided": 8,
+      "disposedS": 536588,
+      "disposedAll": 1437580
+    },
+    {
+      "ticker": "PEP",
+      "company": "PEPSICO INC",
+      "filings": 30,
+      "decided": 3,
+      "disposedS": 37345,
+      "disposedAll": 1004477
+    },
+    {
+      "ticker": "PFE",
+      "company": "PFIZER INC",
+      "filings": 30,
+      "decided": 4,
+      "disposedS": 5278,
+      "disposedAll": 5278
+    },
+    {
+      "ticker": "PG",
+      "company": "PROCTER & GAMBLE Co",
+      "filings": 30,
+      "decided": 8,
+      "disposedS": 348618,
+      "disposedAll": 350633.73000000004
+    },
+    {
+      "ticker": "PM",
+      "company": "Philip Morris International Inc.",
+      "filings": 24,
+      "decided": 6,
+      "disposedS": 158150,
+      "disposedAll": 187011
+    },
+    {
+      "ticker": "PYPL",
+      "company": "PayPal Holdings, Inc.",
+      "filings": 30,
+      "decided": 9,
+      "disposedS": 26843,
+      "disposedAll": 58553
+    },
+    {
+      "ticker": "QCOM",
+      "company": "QUALCOMM INC/DE",
+      "filings": 30,
+      "decided": 13,
+      "disposedS": 40587,
+      "disposedAll": 41786
+    },
+    {
+      "ticker": "RTX",
+      "company": "RTX Corp",
+      "filings": 30,
+      "decided": 9,
+      "disposedS": 170685,
+      "disposedAll": 239889
+    },
+    {
+      "ticker": "SBUX",
+      "company": "STARBUCKS CORP",
+      "filings": 30,
+      "decided": 11,
+      "disposedS": 17874,
+      "disposedAll": 45259.4
+    },
+    {
+      "ticker": "SCHW",
+      "company": "SCHWAB CHARLES CORP",
+      "filings": 30,
+      "decided": 15,
+      "disposedS": 764738,
+      "disposedAll": 833856
+    },
+    {
+      "ticker": "SO",
+      "company": "SOUTHERN CO",
+      "filings": 30,
+      "decided": 4,
+      "disposedS": 400,
+      "disposedAll": 4212
+    },
+    {
+      "ticker": "SPG",
+      "company": "SIMON PROPERTY GROUP INC.",
+      "filings": 30,
+      "decided": 11,
+      "disposedS": 0,
+      "disposedAll": 6862
+    },
+    {
+      "ticker": "T",
+      "company": "AT&T INC.",
+      "filings": 30,
+      "decided": 0,
+      "disposedS": 0,
+      "disposedAll": 0
+    },
+    {
+      "ticker": "TGT",
+      "company": "TARGET CORP",
+      "filings": 30,
+      "decided": 4,
+      "disposedS": 69053,
+      "disposedAll": 120348
+    },
+    {
+      "ticker": "TMO",
+      "company": "THERMO FISHER SCIENTIFIC INC.",
+      "filings": 30,
+      "decided": 5,
+      "disposedS": 16407,
+      "disposedAll": 23906.914999999997
+    },
+    {
+      "ticker": "TMUS",
+      "company": "T-Mobile US, Inc.",
+      "filings": 30,
+      "decided": 10,
+      "disposedS": 154933.203,
+      "disposedAll": 212469.236
+    },
+    {
+      "ticker": "TSLA",
+      "company": "Tesla, Inc.",
+      "filings": 21,
+      "decided": 14,
+      "disposedS": 407881.5,
+      "disposedAll": 114180464.5
+    },
+    {
+      "ticker": "TXN",
+      "company": "TEXAS INSTRUMENTS INC",
+      "filings": 30,
+      "decided": 23,
+      "disposedS": 421615,
+      "disposedAll": 423935
+    },
+    {
+      "ticker": "UNH",
+      "company": "UNITEDHEALTH GROUP INC",
+      "filings": 30,
+      "decided": 1,
+      "disposedS": 800,
+      "disposedAll": 1824.702
+    },
+    {
+      "ticker": "UNP",
+      "company": "UNION PACIFIC CORP",
+      "filings": 30,
+      "decided": 3,
+      "disposedS": 32378,
+      "disposedAll": 32378
+    },
+    {
+      "ticker": "UPS",
+      "company": "UNITED PARCEL SERVICE INC",
+      "filings": 30,
+      "decided": 0,
+      "disposedS": 0,
+      "disposedAll": 12732
+    },
+    {
+      "ticker": "USB",
+      "company": "US BANCORP \\DE\\",
+      "filings": 30,
+      "decided": 4,
+      "disposedS": 134396,
+      "disposedAll": 150282
+    },
+    {
+      "ticker": "V",
+      "company": "VISA INC.",
+      "filings": 30,
+      "decided": 12,
+      "disposedS": 187799,
+      "disposedAll": 318717
+    },
+    {
+      "ticker": "VZ",
+      "company": "VERIZON COMMUNICATIONS INC",
+      "filings": 30,
+      "decided": 0,
+      "disposedS": 0,
+      "disposedAll": 0
+    },
+    {
+      "ticker": "WFC",
+      "company": "WELLS FARGO & COMPANY/MN",
+      "filings": 25,
+      "decided": 0,
+      "disposedS": 0,
+      "disposedAll": 381897.6924
+    },
+    {
+      "ticker": "WMT",
+      "company": "Walmart Inc.",
+      "filings": 28,
+      "decided": 6,
+      "disposedS": 26648,
+      "disposedAll": 31167.847
+    }
+  ]
+}

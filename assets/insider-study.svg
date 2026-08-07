@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 446" width="880" height="446" role="img" aria-label="Of 2,207 SEC Form 4 filings by insiders at 100 S and P 100 companies over 12 months, 71.9 percent contained no decision to trade — they were vesting, option exercises and tax withholding. 26.2 percent contained an open-market sale.">
+  <title>Most insider Form 4 filings contain no decision to trade</title>
+  <desc>SEC Form 4 filings by individual insiders at 100 S&amp;P 100 companies, 12 months to 2026-08-07, classified by whether the filing contains an open-market trade. Filings by corporations and funds are excluded.</desc>
+  <style>
+    .viz { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --ink3:#8a8a85;
+           --key:#2a78d6; --ctx:#c9c8c2; --rule:#e4e3dd; }
+    @media (prefers-color-scheme: dark) {
+      .viz { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --ink3:#8a8a85;
+             --key:#3987e5; --ctx:#46453f; --rule:#2f2e2a; }
+    }
+    text { font-family: ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .ttl { font-size:20px; font-weight:600; fill:var(--ink); }
+    .sub2{ font-size:13px; fill:var(--ink2); }
+    .hero{ font-size:66px; font-weight:680; fill:var(--key); letter-spacing:-2px; }
+    .hcap{ font-size:14.5px; fill:var(--ink2); }
+    .lbl { font-size:13px; }
+    .lbl-key { fill:var(--ink); font-weight:600; }
+    .lbl-ctx { fill:var(--ink2); }
+    .val { font-size:13px; }
+    .val-key { fill:var(--ink); font-weight:600; }
+    .val-ctx { fill:var(--ink2); }
+    .sub { fill:var(--ink3); font-weight:400; }
+    .foot{ font-size:11.5px; fill:var(--ink3); }
+    .cap { font-size:11px; fill:var(--ink3); letter-spacing:0.6px; }
+    .mark-key{ fill:var(--key); }
+    .mark-ctx{ fill:var(--ctx); }
+    .rule{ stroke:var(--rule); stroke-width:1; }
+  </style>
+
+  <g class="viz">
+    <rect width="880" height="446" fill="var(--surface)"/>
+
+    <text class="ttl" x="36" y="44">Most "insider selling" is not a decision to sell</text>
+    <text class="sub2" x="36" y="68">2,207 SEC Form 4 filings by individuals at 100 S&amp;P 100 companies · 12 months to 2026-08-07</text>
+
+    <text class="hero" x="36" y="140">71.9%</text>
+    <text class="hcap" x="248" y="124">of insider filings contain no decision to</text>
+    <text class="hcap" x="248" y="144">trade at all — the shares moved on their own.</text>
+    <text class="sub2" x="36" y="172">At the median company it is 83.3%.</text>
+
+    <line class="rule" x1="36" y1="180" x2="844" y2="180"/>
+    <text class="cap" x="36" y="197">WHAT THE FILING ACTUALLY REPORTED · SHARE OF FILINGS, AND COUNT</text>
+
+    <text class="lbl lbl-ctx" x="328" y="223" text-anchor="end">Vesting, option exercise, tax withholding</text>
+    <path class="mark-ctx" d="M342 210 H626 A4 4 0 0 1 630 214 V222 A4 4 0 0 1 626 226 H342 Z"/>
+    <text class="val val-ctx" x="641" y="223">69.2%<tspan class="sub">  1,527</tspan></text>
+    <text class="lbl lbl-key" x="328" y="259" text-anchor="end">Contained an open-market SALE</text>
+    <path class="mark-key" d="M342 246 H447.01375245579567 A4 4 0 0 1 451.01375245579567 250 V258 A4 4 0 0 1 447.01375245579567 262 H342 Z"/>
+    <text class="val val-key" x="462.01375245579567" y="259">26.2%<tspan class="sub">  578</tspan></text>
+    <text class="lbl lbl-ctx" x="328" y="295" text-anchor="end">Gifts only</text>
+    <path class="mark-ctx" d="M342 282 H349.1277013752456 A4 4 0 0 1 353.1277013752456 286 V294 A4 4 0 0 1 349.1277013752456 298 H342 Z"/>
+    <text class="val val-ctx" x="364.1277013752456" y="295">2.7%<tspan class="sub">  59</tspan></text>
+    <text class="lbl lbl-key" x="328" y="331" text-anchor="end">Contained an open-market PURCHASE</text>
+    <path class="mark-key" d="M342 318 H346.1100196463654 A4 4 0 0 1 350.1100196463654 322 V330 A4 4 0 0 1 346.1100196463654 334 H342 Z"/>
+    <text class="val val-key" x="361.1100196463654" y="331">1.9%<tspan class="sub">  43</tspan></text>
+
+    <line class="rule" x1="36" y1="376" x2="844" y2="376"/>
+    <text class="foot" x="36" y="395">Source: SEC EDGAR Form 4, non-derivative transactions. Up to 30 filings per company, most recent first.</text>
+    <text class="foot" x="36" y="412">Excludes filings by corporations and funds — 53 such filings accounted for 65% of all disposed shares.</text>
+    <text class="foot" x="36" y="429">Reproduce with analysis/fetch.mjs. See analysis/README.md for limitations.</text>
+  </g>
+</svg>

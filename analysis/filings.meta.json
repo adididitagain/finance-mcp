@@ -1,0 +1,614 @@
+{
+  "since": "2025-08-06",
+  "months": 12,
+  "perCompany": 30,
+  "generatedAt": "2026-08-07",
+  "meta": [
+    {
+      "ticker": "AAPL",
+      "company": "Apple Inc.",
+      "filings": 30,
+      "omitted": 12
+    },
+    {
+      "ticker": "ABBV",
+      "company": "AbbVie Inc.",
+      "filings": 30,
+      "omitted": 14
+    },
+    {
+      "ticker": "ABT",
+      "company": "ABBOTT LABORATORIES",
+      "filings": 30,
+      "omitted": 33
+    },
+    {
+      "ticker": "ACN",
+      "company": "Accenture plc",
+      "filings": 30,
+      "omitted": 219
+    },
+    {
+      "ticker": "ADBE",
+      "company": "ADOBE INC.",
+      "filings": 30,
+      "omitted": 36
+    },
+    {
+      "ticker": "AIG",
+      "company": "AMERICAN INTERNATIONAL GROUP, INC.",
+      "filings": 30,
+      "omitted": 72
+    },
+    {
+      "ticker": "AMD",
+      "company": "ADVANCED MICRO DEVICES INC",
+      "filings": 30,
+      "omitted": 41
+    },
+    {
+      "ticker": "AMGN",
+      "company": "AMGEN INC",
+      "filings": 30,
+      "omitted": 53
+    },
+    {
+      "ticker": "AMT",
+      "company": "AMERICAN TOWER CORP /MA/",
+      "filings": 30,
+      "omitted": 9
+    },
+    {
+      "ticker": "AMZN",
+      "company": "AMAZON COM INC",
+      "filings": 30,
+      "omitted": 44
+    },
+    {
+      "ticker": "AVGO",
+      "company": "Broadcom Inc.",
+      "filings": 30,
+      "omitted": 26
+    },
+    {
+      "ticker": "AXP",
+      "company": "AMERICAN EXPRESS CO",
+      "filings": 30,
+      "omitted": 57
+    },
+    {
+      "ticker": "BA",
+      "company": "BOEING CO",
+      "filings": 30,
+      "omitted": 56
+    },
+    {
+      "ticker": "BAC",
+      "company": "BANK OF AMERICA CORP /DE/",
+      "filings": 30,
+      "omitted": 105
+    },
+    {
+      "ticker": "BK",
+      "company": "BKV Corp",
+      "filings": 30,
+      "omitted": 26
+    },
+    {
+      "ticker": "BKNG",
+      "company": "Booking Holdings Inc.",
+      "filings": 30,
+      "omitted": 21
+    },
+    {
+      "ticker": "BLK",
+      "company": "BlackRock, Inc.",
+      "filings": 30,
+      "omitted": 67
+    },
+    {
+      "ticker": "BMY",
+      "company": "BRISTOL MYERS SQUIBB CO",
+      "filings": 30,
+      "omitted": 31
+    },
+    {
+      "ticker": "BRK-B",
+      "company": "BERKSHIRE HATHAWAY INC",
+      "filings": 20,
+      "omitted": 0
+    },
+    {
+      "ticker": "C",
+      "company": "CITIGROUP INC",
+      "filings": 30,
+      "omitted": 70
+    },
+    {
+      "ticker": "CAT",
+      "company": "CATERPILLAR INC",
+      "filings": 30,
+      "omitted": 89
+    },
+    {
+      "ticker": "CHTR",
+      "company": "CHARTER COMMUNICATIONS, INC. /MO/",
+      "filings": 30,
+      "omitted": 18
+    },
+    {
+      "ticker": "CL",
+      "company": "COLGATE PALMOLIVE CO",
+      "filings": 30,
+      "omitted": 33
+    },
+    {
+      "ticker": "CMCSA",
+      "company": "COMCAST CORP",
+      "filings": 30,
+      "omitted": 32
+    },
+    {
+      "ticker": "COF",
+      "company": "CAPITAL ONE FINANCIAL CORP",
+      "filings": 30,
+      "omitted": 67
+    },
+    {
+      "ticker": "COP",
+      "company": "CONOCOPHILLIPS",
+      "filings": 30,
+      "omitted": 32
+    },
+    {
+      "ticker": "COST",
+      "company": "COSTCO WHOLESALE CORP /NEW",
+      "filings": 30,
+      "omitted": 18
+    },
+    {
+      "ticker": "CRM",
+      "company": "Salesforce, Inc.",
+      "filings": 30,
+      "omitted": 133
+    },
+    {
+      "ticker": "CSCO",
+      "company": "CISCO SYSTEMS, INC.",
+      "filings": 30,
+      "omitted": 74
+    },
+    {
+      "ticker": "CVS",
+      "company": "CVS HEALTH Corp",
+      "filings": 30,
+      "omitted": 21
+    },
+    {
+      "ticker": "CVX",
+      "company": "CHEVRON CORP",
+      "filings": 30,
+      "omitted": 53
+    },
+    {
+      "ticker": "DE",
+      "company": "DEERE & CO",
+      "filings": 30,
+      "omitted": 5
+    },
+    {
+      "ticker": "DHR",
+      "company": "DANAHER CORP /DE/",
+      "filings": 30,
+      "omitted": 73
+    },
+    {
+      "ticker": "DIS",
+      "company": "Walt Disney Co",
+      "filings": 30,
+      "omitted": 42
+    },
+    {
+      "ticker": "DOW",
+      "company": "DOW INC.",
+      "filings": 30,
+      "omitted": 19
+    },
+    {
+      "ticker": "DUK",
+      "company": "Duke Energy CORP",
+      "filings": 30,
+      "omitted": 47
+    },
+    {
+      "ticker": "EMR",
+      "company": "EMERSON ELECTRIC CO",
+      "filings": 30,
+      "omitted": 25
+    },
+    {
+      "ticker": "EXC",
+      "company": "EXELON CORP",
+      "filings": 30,
+      "omitted": 12
+    },
+    {
+      "ticker": "F",
+      "company": "FORD MOTOR CO",
+      "filings": 30,
+      "omitted": 63
+    },
+    {
+      "ticker": "FDX",
+      "company": "FEDEX CORP",
+      "filings": 30,
+      "omitted": 8
+    },
+    {
+      "ticker": "GD",
+      "company": "GENERAL DYNAMICS CORP",
+      "filings": 30,
+      "omitted": 75
+    },
+    {
+      "ticker": "GE",
+      "company": "GENERAL ELECTRIC CO",
+      "filings": 30,
+      "omitted": 21
+    },
+    {
+      "ticker": "GILD",
+      "company": "GILEAD SCIENCES, INC.",
+      "filings": 30,
+      "omitted": 53
+    },
+    {
+      "ticker": "GM",
+      "company": "General Motors Co",
+      "filings": 30,
+      "omitted": 20
+    },
+    {
+      "ticker": "GOOGL",
+      "company": "Alphabet Inc.",
+      "filings": 30,
+      "omitted": 147
+    },
+    {
+      "ticker": "GS",
+      "company": "GOLDMAN SACHS GROUP INC",
+      "filings": 30,
+      "omitted": 38
+    },
+    {
+      "ticker": "HD",
+      "company": "HOME DEPOT, INC.",
+      "filings": 30,
+      "omitted": 41
+    },
+    {
+      "ticker": "HON",
+      "company": "HONEYWELL INTERNATIONAL INC",
+      "filings": 30,
+      "omitted": 94
+    },
+    {
+      "ticker": "IBM",
+      "company": "INTERNATIONAL BUSINESS MACHINES CORP",
+      "filings": 30,
+      "omitted": 56
+    },
+    {
+      "ticker": "INTC",
+      "company": "INTEL CORP",
+      "filings": 30,
+      "omitted": 11
+    },
+    {
+      "ticker": "INTU",
+      "company": "INTUIT INC.",
+      "filings": 30,
+      "omitted": 75
+    },
+    {
+      "ticker": "JNJ",
+      "company": "JOHNSON & JOHNSON",
+      "filings": 30,
+      "omitted": 34
+    },
+    {
+      "ticker": "JPM",
+      "company": "JPMORGAN CHASE & CO",
+      "filings": 30,
+      "omitted": 103
+    },
+    {
+      "ticker": "KHC",
+      "company": "Kraft Heinz Co",
+      "filings": 30,
+      "omitted": 1
+    },
+    {
+      "ticker": "KO",
+      "company": "COCA COLA CO",
+      "filings": 30,
+      "omitted": 42
+    },
+    {
+      "ticker": "LIN",
+      "company": "LINDE PLC",
+      "filings": 30,
+      "omitted": 6
+    },
+    {
+      "ticker": "LLY",
+      "company": "ELI LILLY & Co",
+      "filings": 30,
+      "omitted": 108
+    },
+    {
+      "ticker": "LMT",
+      "company": "LOCKHEED MARTIN CORP",
+      "filings": 30,
+      "omitted": 17
+    },
+    {
+      "ticker": "LOW",
+      "company": "LOWES COMPANIES INC",
+      "filings": 30,
+      "omitted": 28
+    },
+    {
+      "ticker": "MA",
+      "company": "Mastercard Inc",
+      "filings": 30,
+      "omitted": 24
+    },
+    {
+      "ticker": "MCD",
+      "company": "MCDONALDS CORP",
+      "filings": 30,
+      "omitted": 28
+    },
+    {
+      "ticker": "MDLZ",
+      "company": "Mondelez International, Inc.",
+      "filings": 24,
+      "omitted": 0
+    },
+    {
+      "ticker": "MDT",
+      "company": "Medtronic plc",
+      "filings": 30,
+      "omitted": 18
+    },
+    {
+      "ticker": "MET",
+      "company": "METLIFE INC",
+      "filings": 30,
+      "omitted": 63
+    },
+    {
+      "ticker": "META",
+      "company": "Meta Platforms, Inc.",
+      "filings": 30,
+      "omitted": 153
+    },
+    {
+      "ticker": "MMM",
+      "company": "3M CO",
+      "filings": 30,
+      "omitted": 33
+    },
+    {
+      "ticker": "MO",
+      "company": "ALTRIA GROUP, INC.",
+      "filings": 30,
+      "omitted": 4
+    },
+    {
+      "ticker": "MRK",
+      "company": "Merck & Co., Inc.",
+      "filings": 30,
+      "omitted": 44
+    },
+    {
+      "ticker": "MS",
+      "company": "MORGAN STANLEY",
+      "filings": 30,
+      "omitted": 31
+    },
+    {
+      "ticker": "MSFT",
+      "company": "MICROSOFT CORP",
+      "filings": 30,
+      "omitted": 100
+    },
+    {
+      "ticker": "NEE",
+      "company": "NEXTERA ENERGY INC",
+      "filings": 30,
+      "omitted": 31
+    },
+    {
+      "ticker": "NFLX",
+      "company": "NETFLIX INC",
+      "filings": 30,
+      "omitted": 167
+    },
+    {
+      "ticker": "NKE",
+      "company": "NIKE, Inc.",
+      "filings": 30,
+      "omitted": 29
+    },
+    {
+      "ticker": "NVDA",
+      "company": "NVIDIA CORP",
+      "filings": 30,
+      "omitted": 68
+    },
+    {
+      "ticker": "ORCL",
+      "company": "ORACLE CORP",
+      "filings": 30,
+      "omitted": 23
+    },
+    {
+      "ticker": "PEP",
+      "company": "PEPSICO INC",
+      "filings": 30,
+      "omitted": 9
+    },
+    {
+      "ticker": "PFE",
+      "company": "PFIZER INC",
+      "filings": 30,
+      "omitted": 55
+    },
+    {
+      "ticker": "PG",
+      "company": "PROCTER & GAMBLE Co",
+      "filings": 30,
+      "omitted": 88
+    },
+    {
+      "ticker": "PM",
+      "company": "Philip Morris International Inc.",
+      "filings": 24,
+      "omitted": 0
+    },
+    {
+      "ticker": "PYPL",
+      "company": "PayPal Holdings, Inc.",
+      "filings": 30,
+      "omitted": 51
+    },
+    {
+      "ticker": "QCOM",
+      "company": "QUALCOMM INC/DE",
+      "filings": 30,
+      "omitted": 50
+    },
+    {
+      "ticker": "RTX",
+      "company": "RTX Corp",
+      "filings": 30,
+      "omitted": 14
+    },
+    {
+      "ticker": "SBUX",
+      "company": "STARBUCKS CORP",
+      "filings": 30,
+      "omitted": 12
+    },
+    {
+      "ticker": "SCHW",
+      "company": "SCHWAB CHARLES CORP",
+      "filings": 30,
+      "omitted": 79
+    },
+    {
+      "ticker": "SO",
+      "company": "SOUTHERN CO",
+      "filings": 30,
+      "omitted": 67
+    },
+    {
+      "ticker": "SPG",
+      "company": "SIMON PROPERTY GROUP INC.",
+      "filings": 30,
+      "omitted": 57
+    },
+    {
+      "ticker": "T",
+      "company": "AT&T INC.",
+      "filings": 30,
+      "omitted": 128
+    },
+    {
+      "ticker": "TGT",
+      "company": "TARGET CORP",
+      "filings": 30,
+      "omitted": 12
+    },
+    {
+      "ticker": "TMO",
+      "company": "THERMO FISHER SCIENTIFIC INC.",
+      "filings": 30,
+      "omitted": 48
+    },
+    {
+      "ticker": "TMUS",
+      "company": "T-Mobile US, Inc.",
+      "filings": 30,
+      "omitted": 46
+    },
+    {
+      "ticker": "TSLA",
+      "company": "Tesla, Inc.",
+      "filings": 21,
+      "omitted": 0
+    },
+    {
+      "ticker": "TXN",
+      "company": "TEXAS INSTRUMENTS INC",
+      "filings": 30,
+      "omitted": 38
+    },
+    {
+      "ticker": "UNH",
+      "company": "UNITEDHEALTH GROUP INC",
+      "filings": 30,
+      "omitted": 88
+    },
+    {
+      "ticker": "UNP",
+      "company": "UNION PACIFIC CORP",
+      "filings": 30,
+      "omitted": 90
+    },
+    {
+      "ticker": "UPS",
+      "company": "UNITED PARCEL SERVICE INC",
+      "filings": 30,
+      "omitted": 18
+    },
+    {
+      "ticker": "USB",
+      "company": "US BANCORP \\DE\\",
+      "filings": 30,
+      "omitted": 27
+    },
+    {
+      "ticker": "V",
+      "company": "VISA INC.",
+      "filings": 30,
+      "omitted": 16
+    },
+    {
+      "ticker": "VZ",
+      "company": "VERIZON COMMUNICATIONS INC",
+      "filings": 30,
+      "omitted": 235
+    },
+    {
+      "ticker": "XOM",
+      "company": "ExxonMobil Holdings Corp",
+      "filings": 0,
+      "omitted": 0
+    },
+    {
+      "ticker": "WFC",
+      "company": "WELLS FARGO & COMPANY/MN",
+      "filings": 30,
+      "omitted": 68
+    },
+    {
+      "ticker": "WMT",
+      "company": "Walmart Inc.",
+      "filings": 30,
+      "omitted": 173
+    }
+  ]
+}
